@@ -17,9 +17,10 @@ int main ( )
 {
 
   double x = 1;
-  while(1);
+  // while(1);
+  sleep(10);
   for(int i=0; i<5; i++) {
-    //sleep(i);
+    // sleep(i);
    
   }
   cout << "teste" <<'\n';
