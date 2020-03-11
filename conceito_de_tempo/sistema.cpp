@@ -10,7 +10,8 @@
 int main ()
 {
  printf("Rodando o comando ps com system(): Início \n");
- system ("./sleep &");
+ system("g++ sleep.cpp -o sleep");
+ system ("./sleep");
  system ("./sleep &");
     system ("ps -axf | grep sleep ");
  printf("Rodando o comando ps com system(): Fim \n");
