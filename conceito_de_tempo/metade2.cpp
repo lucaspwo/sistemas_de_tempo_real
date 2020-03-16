@@ -25,6 +25,7 @@ void carga(int k){
 
 long double cont;
 long double freq;
+bool pausa = false;
 
 int main( ){
   ifstream read;
@@ -46,7 +47,7 @@ int main( ){
   }**/
 
   while(1){
-    while(cont < freq/2){
+    while(cont < freq){
       //  clock_t time_1, time_2;
       //  time_t  real_time_1, real_time_2, delta_real_time;
 
@@ -71,9 +72,16 @@ int main( ){
       //  printf(" Tempo Real decorrido em microsegundos: %d \n", (int) delta_real_time);
 
       //  printf("\n Qual é a diferença entre as funções clock( ) e time( )? \n\n");
-
-      cont++;
+        if(pausa == false){
+            carga(100);
+            cont++;
+            pausa = true;
+        } else{
+            cont++;
+            pausa = false;
+        }
     }
+    pausa = false;
     cont = 0;
   }
   //sleep(1);
