@@ -21,20 +21,15 @@ using namespace std;
 
 
 // função para simular carregamento da CPU
-void carga(int k)
-{
+void carga(int k){
   float f = 0.999999;
-  for(int i=0; i<k; i++)
-    {
-      f = f*f*f*f*f;
-      f = 1.56;
-        for(int j=0; j<k; j++)
-           {
-	     f = sin(f)*sin(f)*f*f*f;
-
-            }
+  for(int i=0; i<k; i++){
+    f = f*f*f*f*f;
+    f = 1.56;
+    for(int j=0; j<k; j++){
+      f = sin(f)*sin(f)*f*f*f;
     }
-
+  }
 }
 
 
@@ -66,7 +61,7 @@ int main( ){
      time_1 = clock();
      real_time_1 = time(0);
      carga(10000);
-     sleep(6);
+     sleep(3);
      real_time_2 = time(0);
      time_2 = clock();
 
@@ -77,7 +72,7 @@ int main( ){
     
     printf("\n Tempo de uso da CPU em microsegundos: %d \n", saida);
     printf(" Tempo de uso da CPU em segundos: %f \n", saida2);
-    printf(" Tempo Real decorrido em microsegundos: %d \n", (int) delta_real_time);
+    printf(" Tempo Real decorrido em segundos: %d \n", (int) delta_real_time);
     
     
     exit(1);
