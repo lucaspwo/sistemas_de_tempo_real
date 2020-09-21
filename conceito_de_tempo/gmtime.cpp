@@ -19,7 +19,8 @@ int  main ( )
   time_t  tempo_valor;  // variável para armazenar o tempo em segundos
 
   (void) time(&tempo_valor);  // outra forma de armazenar o tempo em segundos
-  tm_ptr = gmtime(&tempo_valor); // obtendo a esttutura
+  // tm_ptr = gmtime(&tempo_valor); // obtendo a esttutura
+  tm_ptr = localtime(&tempo_valor); // obtendo a esttutura
 
   cout <<"Programa que utiliza várias funções de captura de data ";
 
