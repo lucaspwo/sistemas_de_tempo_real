@@ -33,7 +33,9 @@
 
 Adafruit_SSD1331 display = Adafruit_SSD1331(&SPI, cs, dc, rst); // Inicializacao do display
 
-int SWarray[10];
+#define limiar  1020  // Valor para comparar com a leitura analogica das entradas dos botoes
+
+unsigned int SWarray[10]; //Array para armazenar os valores de tempo de cada acendimento do LED
 
 unsigned int resultado = 0; // Var. para guardar o tempo de resposta em millis
 bool acerto[10] = {false, false, false, false, false, false, false, false, false, false}; // Var. para guardar quais repostas foram acertadas
@@ -43,7 +45,7 @@ int addr = 0; // Valor da primeira posicao da eeprom
 unsigned int hiscore; // Var. para armazenar a pontuacao da eeprom
 
 bool debug = false;       // Modo debug: true para saida de valores na serial
-bool modoRapido = false;  // Modo rapido: true para pular a exibicao das instrucoes
+bool modoRapido = true;  // Modo rapido: true para pular a exibicao das instrucoes
 bool resetHiscore = false;// Resetar a pontuacao na eeprom: true para escrever o valor do proximo teste
 
 void setup(void) {
@@ -271,13 +273,13 @@ void piscaAzul(int v){
   pinMode(verme, INPUT);
   digitalWrite(azul, LOW);
 
-  int agora = millis();
+  unsigned int agora = millis();
   while(millis() - agora < 5000){
-    if(analogRead(b_azul) > 1000){
+    if(analogRead(b_azul) > limiar){
       acerto[v] = true;
       break;
     }
-    if(analogRead(b_verm) > 1000 || analogRead(b_amar) > 1000 || analogRead(b_verde) > 1000){
+    if(analogRead(b_verm) > limiar || analogRead(b_amar) > limiar || analogRead(b_verde) > limiar){
       break;
     }
   }
@@ -297,13 +299,13 @@ void piscaVermelho(int v){
   pinMode(verme, OUTPUT);
   digitalWrite(verme, LOW);
 
-  int agora = millis();
+  unsigned int agora = millis();
   while(millis() - agora < 5000){
-    if(analogRead(b_verm) > 1000){
+    if(analogRead(b_verm) > limiar){
       acerto[v] = true;
       break;
     }
-    if(analogRead(b_azul) > 1000 || analogRead(b_amar) > 1000 || analogRead(b_verde) > 1000){
+    if(analogRead(b_azul) > limiar || analogRead(b_amar) > limiar || analogRead(b_verde) > limiar){
       break;
     }
   }
@@ -324,13 +326,13 @@ void piscaAmarelo(int v){
   digitalWrite(verme, LOW);
   digitalWrite(verde, LOW);
 
-  int agora = millis();
+  unsigned int agora = millis();
   while(millis() - agora < 5000){
-    if(analogRead(b_amar) > 1000){
+    if(analogRead(b_amar) > limiar){
       acerto[v] = true;
       break;
     }
-    if(analogRead(b_azul) > 1000 || analogRead(b_verm) > 1000 || analogRead(b_verde) > 1000){
+    if(analogRead(b_azul) > limiar || analogRead(b_verm) > limiar || analogRead(b_verde) > limiar){
       break;
     }
   }
@@ -350,13 +352,13 @@ void piscaVerde(int v){
   pinMode(verme, INPUT);
   digitalWrite(verde, LOW);
   
-  int agora = millis();
+  unsigned int agora = millis();
   while(millis() - agora < 5000){
-    if(analogRead(b_verde) > 1000){
+    if(analogRead(b_verde) > limiar){
       acerto[v] = true;
       break;
     }
-    if(analogRead(b_azul) > 1000 || analogRead(b_verm) > 1000 || analogRead(b_amar) > 1000){
+    if(analogRead(b_azul) > limiar || analogRead(b_verm) > limiar || analogRead(b_amar) > limiar){
       break;
     }
   }
