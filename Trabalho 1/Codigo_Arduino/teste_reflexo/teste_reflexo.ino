@@ -1,7 +1,6 @@
 #include <Adafruit_GFX.h>
 #include <Adafruit_SSD1331.h>
 #include <SPI.h>
-#include <StopWatch.h>
 #include <EEPROM.h>
 
 // Pinagem para o display
@@ -34,7 +33,7 @@
 
 Adafruit_SSD1331 display = Adafruit_SSD1331(&SPI, cs, dc, rst); // Inicializacao do display
 
-StopWatch SWarray[10];  // Inicializacao de um array de 10 StopWatches
+int SWarray[10];
 
 unsigned int resultado = 0; // Var. para guardar o tempo de resposta em millis
 bool acerto[10] = {false, false, false, false, false, false, false, false, false, false}; // Var. para guardar quais repostas foram acertadas
@@ -248,15 +247,15 @@ void teste(){
   for(int l=0; l<10; l++){
     if(debug){
       Serial.print("SWarray["); Serial.print(l); Serial.print("]: ");
-      Serial.println(SWarray[l].value());
+      Serial.println(SWarray[l]);
     }
     if(acerto[l] == true){
-      resultado = resultado + SWarray[l].value();
-      score = score - SWarray[l].value();
+      resultado = resultado + SWarray[l];
+      score = score - SWarray[l];
       acertos = acertos + 1;
     }
     if(acerto[l] == false){
-      resultado = resultado + SWarray[l].value();
+      resultado = resultado + SWarray[l];
       score = score - 5000;
     }
   }
@@ -272,8 +271,8 @@ void piscaAzul(int v){
   pinMode(verme, INPUT);
   digitalWrite(azul, LOW);
 
-  SWarray[v].start();
-  while(SWarray[v].value() < 5000){
+  int agora = millis();
+  while(millis() - agora < 5000){
     if(analogRead(b_azul) > 1000){
       acerto[v] = true;
       break;
@@ -282,13 +281,13 @@ void piscaAzul(int v){
       break;
     }
   }
-  SWarray[v].stop();
+  SWarray[v] = millis() - agora;
   pinMode(azul, INPUT);
   pinMode(verde, INPUT);
   pinMode(verme, INPUT);
   if(debug){
     Serial.print("Az: ");
-    Serial.println(SWarray[v].value());
+    Serial.println(SWarray[v]);
   }
 }
 
@@ -298,8 +297,8 @@ void piscaVermelho(int v){
   pinMode(verme, OUTPUT);
   digitalWrite(verme, LOW);
 
-  SWarray[v].start();
-  while(SWarray[v].value() < 5000){
+  int agora = millis();
+  while(millis() - agora < 5000){
     if(analogRead(b_verm) > 1000){
       acerto[v] = true;
       break;
@@ -308,13 +307,13 @@ void piscaVermelho(int v){
       break;
     }
   }
-  SWarray[v].stop();
+  SWarray[v] = millis() - agora;
   pinMode(azul, INPUT);
   pinMode(verde, INPUT);
   pinMode(verme, INPUT);
   if(debug){
     Serial.print("Vm: ");
-    Serial.println(SWarray[v].value());
+    Serial.println(SWarray[v]);
   }
 }
 
@@ -325,8 +324,8 @@ void piscaAmarelo(int v){
   digitalWrite(verme, LOW);
   digitalWrite(verde, LOW);
 
-  SWarray[v].start();
-  while(SWarray[v].value() < 5000){
+  int agora = millis();
+  while(millis() - agora < 5000){
     if(analogRead(b_amar) > 1000){
       acerto[v] = true;
       break;
@@ -335,13 +334,13 @@ void piscaAmarelo(int v){
       break;
     }
   }
-  SWarray[v].stop();
+  SWarray[v] = millis() - agora;
   pinMode(azul, INPUT);
   pinMode(verde, INPUT);
   pinMode(verme, INPUT);
   if(debug){
     Serial.print("Am: ");
-    Serial.println(SWarray[v].value());
+    Serial.println(SWarray[v]);
   }
 }
 
@@ -350,9 +349,9 @@ void piscaVerde(int v){
   pinMode(verde, OUTPUT);
   pinMode(verme, INPUT);
   digitalWrite(verde, LOW);
-
-  SWarray[v].start();
-  while(SWarray[v].value() < 5000){
+  
+  int agora = millis();
+  while(millis() - agora < 5000){
     if(analogRead(b_verde) > 1000){
       acerto[v] = true;
       break;
@@ -361,12 +360,12 @@ void piscaVerde(int v){
       break;
     }
   }
-  SWarray[v].stop();
+  SWarray[v] = millis() - agora;
   pinMode(azul, INPUT);
   pinMode(verde, INPUT);
   pinMode(verme, INPUT);
   if(debug){
     Serial.print("Vd: ");
-    Serial.println(SWarray[v].value());
+    Serial.println(SWarray[v]);
   }
 }
