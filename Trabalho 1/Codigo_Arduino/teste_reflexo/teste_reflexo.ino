@@ -33,7 +33,7 @@
 
 Adafruit_SSD1331 display = Adafruit_SSD1331(&SPI, cs, dc, rst); // Inicializacao do display
 
-#define limiar  1020  // Valor para comparar com a leitura analogica das entradas dos botoes
+#define limiar  450  // Valor para comparar com a leitura analogica das entradas dos botoes
 
 unsigned int SWarray[10]; //Array para armazenar os valores de tempo de cada acendimento do LED
 
@@ -45,7 +45,7 @@ int addr = 0; // Valor da primeira posicao da eeprom
 unsigned int hiscore; // Var. para armazenar a pontuacao da eeprom
 
 bool debug = false;       // Modo debug: true para saida de valores na serial
-bool modoRapido = true;  // Modo rapido: true para pular a exibicao das instrucoes
+bool modoRapido = false;  // Modo rapido: true para pular a exibicao das instrucoes
 bool resetHiscore = false;// Resetar a pontuacao na eeprom: true para escrever o valor do proximo teste
 
 void setup(void) {
