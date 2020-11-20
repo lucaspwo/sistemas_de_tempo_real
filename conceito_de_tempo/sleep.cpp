@@ -22,7 +22,7 @@ int main ( )
   double x = 1;
   // while(1);
   // sleep(10);
-  for(int i=0; i<5; i++) {
+  for(int i=0; i<10; i++) {
     sleep(i);
    
   }
